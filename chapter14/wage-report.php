@@ -13,30 +13,27 @@
 <body>
 <?php
 
-$server = "localhost";
-$user = "wbip";
-$pw = "wbip123";
-$db = "test";
+include_once('../database/connection.php');
 
-$connect=mysqli_connect($server, $user, $pw, $db);
+$connect=mysqli_connect(SERVER, USER, PW, DB);
 
 if( !$connect) 
 {
-	die("ERROR: Cannot connect to database $db on server $server 
-	using user name $user (".mysqli_connect_errno().
+	die("ERROR: Cannot connect to database ".DB." on server ".SERVER."
+	using user name '".USER." (".mysqli_connect_errno().
 	", ".mysqli_connect_error().")");
 }
 
 $hourlyWage = $_POST['hourlyWage'];
 $jobTitle = $_POST['jobTitle'];
 
-$userQuery = " "; // ADD THE QUERY
+$userQuery = "SELECT empID FROM personnel WHERE jobTitle = '".$jobTitle."' AND hourlyWage <=  ".$hourlyWage." ";
 
 $result = mysqli_query($connect, $userQuery);
 
 if (!$result) 
 {
-	die("Could not successfully run query ($userQuery) from $db: " .	
+	die("Could not successfully run query ($userQuery) from ".DB.": " .	
 		mysqli_error($connect) );
 }
 
@@ -53,11 +50,14 @@ else
 	print("<table border = \"1\">");
 	print("<tr><th>EMP ID</th></tr>");
 
-	// ADD CODE HERE
+	while ($row = mysqli_fetch_assoc($result))
+    {
+        print (	"<tr><td>".$row['empID']."</td></tr>");
+    }
+	
 
 	print ("</table>");
 }
-
 mysqli_close($connect);   // close the connection
  
 ?>

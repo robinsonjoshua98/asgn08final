@@ -1,5 +1,10 @@
 <?php
 $page_title = 'Raises'; 
+
+include_once('../database/connection.php');
+
+$connect=mysqli_connect(SERVER, USER, PW, DB);
+
 include_once("initialize.php");
 
 check_db_connection($connect);
@@ -16,16 +21,14 @@ if (mysqli_num_rows($result) == 0) {
 else { 
 
 	echo "<h1>List of Employees Who Need a Raise</h1>";
-	echo "<table border=\"1\" width=\"2em\">";
-	echo "<tr><th>EmpID</th><th>First</th><th>Last</th></tr>";
-	
-	while($row = mysqli_fetch_assoc($result)) { 
-		echo ("<tr><td>" . $row['empID'] . "</td><td>" . $row['firstName'] . "</td><td>" . $row['lastName'] . "</td></tr>");
-	}
-	echo "</table>";
+	while ($row = mysqli_fetch_assoc($result))
+		{
+			print (	"<p>".$row['empID']." needs a raise</p>");
+		}
+
 }
 	mysqli_close($connect); 
-	include_once("includes/footer.php");
+	include_once("../includes/footer.php");
 ?>
 
 

@@ -14,12 +14,14 @@
 <body>
 <?php
 
-$server = "localhost";
-$user = "wbip";
-$pw = "wbip123";
-$db = "test";
+include_once('../database/connection.php');
 
-$connect=mysqli_connect($server, $user, $pw, $db);
+// $server = "localhost";
+// $user = "wbip";
+// $pw = "wbip123";
+// $db = "test";
+
+$connect=mysqli_connect(SERVER, USER, PW, DB);
 
 if( !$connect) 
 {
@@ -28,7 +30,7 @@ if( !$connect)
 	", ".mysqli_connect_error().")");
 }
 
-$userQuery = ""; // ADD QUERY
+$userQuery =  "Update personnel SET jobTitle='Manager', lastName='Jackson' WHERE empID='12353' ";
 
 $result = mysqli_query($connect, $userQuery);
 
