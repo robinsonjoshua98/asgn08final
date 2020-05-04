@@ -1,11 +1,5 @@
 <?php
-// local using variables
-// $server = "localhost";
-// $user = "wbip";
-// $pw = "wbip123";
-// $db = "test";
 
-// local using constants
 
 if($_SERVER['HTTP_HOST'] == "joshuadrobinson.com")
 {
@@ -22,8 +16,8 @@ define("PW", "wbip123");
 define("DB", "test");
 }
 
-// global $connect;
-// $connect = mysqli_connect(SERVER, USER, PW, DB);
+ global $connect;
+$connect = mysqli_connect(SERVER, USER, PW, DB);
 
 
 

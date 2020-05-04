@@ -9,7 +9,7 @@ if (!$connect) {
 
 function check_that_query_runs($result) {
     if (!$result) {
-        die("Could not successfully run query ($userQuery) from $db: " .	
+        die("Could not successfully run query ($userQuery) from ".DB.": " .	
             mysqli_error($connect) );
     }
 }

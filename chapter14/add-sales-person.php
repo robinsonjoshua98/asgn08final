@@ -1,42 +1,16 @@
-<!DOCTYPE html>
-<!--	Author: 
-		Date:	
-		File:	add-sale-person.php
-		Purpose:MySQL Exercise
--->
-
-<html>
-<head>
-	<title>MySQL Query</title>
-	<link rel ="stylesheet" type="text/css" href="sample.css">
-</head>
-
-<body>
-
 <?php
 
-include_once('../database/connection.php');
+$page_title = 'Add Sales Person'; 
 
-// $server = "localhost";
-// $user = "wbip";
-// $pw = "wbip123";
-// $db = "test";
+include_once("initialize.php");
 
-$connect=mysqli_connect(SERVER, USER, PW, DB);
 
-if( !$connect) 
-{
-	die("ERROR: Cannot connect to database $db on server $server 
-	using user name $user (".mysqli_connect_errno().
-	", ".mysqli_connect_error().")");
-}
+check_db_connection($connect);
 $empID = $_POST['empID'];
 $firstName = $_POST['firstName'];
 $lastName = $_POST['lastName'];
 
-$userQuery = "INSERT INTO personnel 
-(empID, firstName, lastName, jobTitle, hourlyWage)
-VALUES ('$empID', '$firstName', '$lastName', 'Sales', '8.25')"; 
+$userQuery = add_sales_person();
 
 $result = mysqli_query($connect, $userQuery);
 

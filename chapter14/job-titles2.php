@@ -1,48 +1,19 @@
-<!DOCTYPE html>
-<!--	Author: 
-		Date:	
-		File:	job-titles2.php
-		Purpose:MySQL Exercise
--->
-
-<html>
-<head>
-	<title>MySQL Query</title>
-	<link rel ="stylesheet" type="text/css" href="sample.css">
-</head>
-
-<body>
-
 <?php
+$page_title = 'Job Titles'; 
 
+include_once("initialize.php");
 
-include_once('../database/connection.php');
-
-// $server = "localhost";
-// $user = "wbip";
-// $pw = "wbip123";
-// $db = "test";
-
-$connect=mysqli_connect(SERVER, USER, PW, DB);
-
-if( !$connect) 
-{
-	die("ERROR: Cannot connect to database ".DB." on server ".SERVER."
-	using user name ".USER." (".mysqli_connect_errno().
-	", ".mysqli_connect_error().")");
-}
+check_db_connection($connect);
 
 $jobTitle = $_POST['jobTitle'];
 
-$userQuery = "SELECT lastName, firstName FROM `personnel` WHERE jobTitle='$jobTitle'";  
+$userQuery = job_title();
 
 $result = mysqli_query($connect, $userQuery);
 
-if (!$result) 
-{
-	die("Could not successfully run query ($userQuery) from ".DB.": " .	
-		mysqli_error($connect) );
-}
+
+check_that_query_runs($result);
+
 
 if (mysqli_num_rows($result) == 0) 
 {
@@ -62,10 +33,5 @@ else
 	print ("</table>");
 }
 
-
-
 mysqli_close($connect);   // close the connection
- 
-?>
-</body>
-</html>
+include_once("../includes/footer.php");

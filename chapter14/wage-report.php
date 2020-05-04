@@ -1,35 +1,20 @@
-<!DOCTYPE html>
-<!--	Author: 
-		Date:	
-		File:	wage-report.php
-		Purpose:MySQL Exercise
--->
 
-<html>
-<head>
-	<title>MySQL Query</title>
-	<link rel ="stylesheet" type="text/css" href="sample.css">
-</head>
-<body>
 <?php
-
-include_once('../database/connection.php');
-
-$connect=mysqli_connect(SERVER, USER, PW, DB);
-
-if( !$connect) 
-{
-	die("ERROR: Cannot connect to database ".DB." on server ".SERVER."
-	using user name '".USER." (".mysqli_connect_errno().
-	", ".mysqli_connect_error().")");
-}
 
 $hourlyWage = $_POST['hourlyWage'];
 $jobTitle = $_POST['jobTitle'];
+$page_title = 'Name Change'; 
 
-$userQuery = "SELECT empID FROM personnel WHERE jobTitle = '".$jobTitle."' AND hourlyWage <=  ".$hourlyWage." ";
+include_once("initialize.php");
 
-$result = mysqli_query($connect, $userQuery);
+check_db_connection($connect);
+
+$result = mysqli_query($connect, change_name());
+
+check_that_query_runs($result);
+
+
+$result = mysqli_query($connect, wage_report());
 
 if (!$result) 
 {
@@ -60,6 +45,4 @@ else
 }
 mysqli_close($connect);   // close the connection
  
-?>
-</body>
-</html>
+include_once("../includes/footer.php");

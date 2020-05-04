@@ -1,38 +1,14 @@
-<!DOCTYPE html>
-<!--	Author: 
-		Date:	
-		File:	name-change.php
-		Purpose:MySQL Exercise
--->
-
-<html>
-<head>
-	<title>MySQL Query</title>
-	<link rel ="stylesheet" type="text/css" href="sample.css">
-</head>
-
-<body>
 <?php
 
-include_once('../database/connection.php');
+$page_title = 'Name Change'; 
 
-// $server = "localhost";
-// $user = "wbip";
-// $pw = "wbip123";
-// $db = "test";
+include_once("initialize.php");
 
-$connect=mysqli_connect(SERVER, USER, PW, DB);
+check_db_connection($connect);
 
-if( !$connect) 
-{
-	die("ERROR: Cannot connect to database $db on server $server 
-	using user name $user (".mysqli_connect_errno().
-	", ".mysqli_connect_error().")");
-}
+$result = mysqli_query($connect, change_name());
 
-$userQuery =  "Update personnel SET jobTitle='Manager', lastName='Jackson' WHERE empID='12353' ";
-
-$result = mysqli_query($connect, $userQuery);
+check_that_query_runs($result);
 
 if (!$result) 
 {
@@ -47,8 +23,6 @@ else
 
 
 mysqli_close($connect);   // close the connection
- 
+include_once("../includes/footer.php");
 ?>
 
-</body>
-</html>
